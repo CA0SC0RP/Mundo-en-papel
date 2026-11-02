@@ -1,69 +1,86 @@
 # Estado del proyecto — Mundo en Papel
 
 **Última actualización:** 2026-11-02  
-**Estado:** fase de recuperación, inventario y preparación de la base de trabajo.
+**Estado:** recuperación documental completada en esta rama; auditoría y migración de código pendientes.
 
-## Estado verificado del repositorio nuevo
+## Repositorio nuevo
 
-- Repositorio: [CA0SC0RP/Mundo-en-papel](https://github.com/CA0SC0RP/Mundo-en-papel).
-- Rama base: `main`.
-- La rama de documentación actual es `docs/base-continuidad-y-migracion`.
-- Antes de esta rama, `main` contenía únicamente un README mínimo.
-- Esta rama incorpora documentos de continuidad; todavía no contiene el motor ni el prototipo migrado.
+- Destino: [CA0SC0RP/Mundo-en-papel](https://github.com/CA0SC0RP/Mundo-en-papel).
+- Rama base: `main`, que conserva el README inicial.
+- Rama de trabajo documental: `docs/base-continuidad-y-migracion`.
+- Esta rama contiene documentos de continuidad y referencias; todavía no contiene el motor ni el editor migrado.
 
 ## Objetivo vigente
 
-Desarrollar un estudio para crear microhistorias y cortometrajes animados de papel, con duración orientativa de alrededor de un minuto. El producto debe permitir crear personajes, escenas, animación y exportar el resultado desde iPad.
+Desarrollar un estudio para crear microhistorias y cortometrajes animados con estética artesanal de papel recortado, con una duración orientativa inicial de alrededor de un minuto. La prioridad funcional es completar el editor de personajes, después escenas y animación, timeline, renderizado/exportación local y, más adelante, el reproductor Android TV.
 
-## Decisiones vigentes
+## Dirección de producto aprobada
 
-- Interfaz y capacidades de animación tomando ToonSquid para iPad como referencia principal, sin clonarlo.
-- Interfaz limpia, fluida y táctil; compatibilidad también con mouse y puntero.
-- Simplificar el alcance y evitar cuatro subprogramas separados.
-- Reutilizar el editor de personajes y Creative Control existentes, después de auditarlos.
-- Prioridad del editor de personajes antes de ampliar escenas y timeline.
-- Música como banda sonora, diálogo y efectos; no como reproductor de paisajes musicales en loop.
-- Mantener el lenguaje visual de papel recortado, capas, bordes físicos, sombras y profundidad artesanal.
+- ToonSquid para iPad como referencia principal de capacidades, organización y flujo; no clonarlo.
+- Interfaz propia, limpia, moderna y fluida, diseñada para touch y compatible con mouse/puntero.
+- Simplificar el alcance; no dividir el producto en cuatro subprogramas grandes.
+- Reutilizar el editor de personajes y Creative Control existentes.
+- Herramientas avanzadas mediante paneles contextuales y opcionales.
+- Música, diálogo y efectos como recursos de la historia, no como reproductor de paisajes musicales en loop.
 
-## Inventario histórico localizado en el repositorio anterior
+## Hallazgo importante: el repositorio anterior tiene ramas más avanzadas que main
 
-Se verificó que `CA0SC0RP/art-Design-Music` contiene, al menos en su rama `main` consultada:
+La auditoría inicial del repositorio anterior debe tomar como fuente prioritaria la rama histórica:
 
-- Documentación raíz: `ARQUITECTURA.md`, `BITACORA.md`, `ESTADO_PROYECTO.md`, `INSTRUCCIONES_PARA_IA.md` y `README.md`.
-- `creative-control/README.md`, `creative-control/adapter.js` y un contrato de sincronización.
-- Prototipo `prototype/character-editor-v01/index.html`.
-- Pruebas `tests/editor-input.test.js` y `tests/test_contrato_v2.py`.
-- Documentos sobre contrato de capas, validación, producción por capas, dirección artística y partitura audiovisual.
-- Imagen maestra histórica `cuadro_vivo_mountains_that_breathe_master_4k.png`.
+`CA0SC0RP/art-Design-Music — feature/living-paper-engine-foundation`
 
-Este inventario confirma que hay material recuperable; **no confirma** que todo ese material corresponda al alcance actual ni que funcione en el estado presente.
+HEAD observado al consultar GitHub: `2734257ca0515c98637689b4a906c4ad0da9dfe9`.
 
-## Qué no debe darse por implementado
+La rama `main` del repositorio anterior no contiene todo el trabajo reciente. No migrar desde `main` sin comparar las ramas y confirmar los archivos.
 
-No declarar como terminados sin auditoría y pruebas actuales:
-- motor de animación integrado;
-- deformación y rigs completos;
-- timeline final;
-- editor de escenas;
-- render/exportación local;
-- aplicación Android TV;
-- compatibilidad completa con iPad Safari y mouse;
-- integración total de Creative Control.
+## Inventario técnico de la rama avanzada
 
-Los resultados históricos de pruebas y las propuestas del antiguo proyecto deben volver a ejecutarse y revisarse en el código que se migre.
+En `feature/living-paper-engine-foundation` se localizaron:
+
+- Editor articulado de personajes v0.9.x en `prototype/character-editor-v01/`, con archivos separados para IK, geometría, malla, skinning y guardado/carga de proyectos.
+- Pruebas de editor, IK, mallas, skinning, geometría y serialización.
+- Creative Control: adaptador de solo lectura, registro de capacidades, esquema de propuestas, validador y vista previa aislada.
+- Motor experimental PixiJS en `living-paper-engine/`, con módulos de geometría, deformación, rigging, capas, volumen y colisiones.
+- Prototipo de estudio `prototype/caricature-studio-v01/`.
+- Cinco prototipos de escena anteriores `prototype/level-01` a `level-05`.
+- Documentación actualizada de dirección, auditoría de reutilización, Codespaces y render local.
+
+## Estado registrado en la rama avanzada
+
+La documentación de esa rama registra:
+
+- Editor de personajes: versión v0.9.33 en el último registro consultado.
+- CI #116: 93 pruebas superadas, 0 fallidas para la versión v0.9.31.
+- Creative Control: registro de capacidades, validación estructurada de propuestas y vista previa creativa aislada no mutante.
+- CI #139: 110 pruebas superadas, 0 fallidas para la etapa de vista previa creativa.
+- La ejecución de CI valida lógica y estructura; no sustituye la prueba visual y táctil real en Safari/iPad.
+- La inspección visual y táctil en Safari/iPad seguía pendiente en los registros consultados.
+
+Estos resultados son históricos y deben repetirse sobre el commit exacto que se decida migrar. No asumir que el HEAD actual coincide con el commit de cada ejecución de CI.
+
+## Límites: no declarar como terminado
+
+No hay evidencia suficiente para afirmar que ya están terminados:
+- editor completo listo para producción;
+- integración de todos los subsistemas del motor;
+- timeline narrativa;
+- editor/secuenciador completo de escenas;
+- render y exportación de vídeo local;
+- exportación 4K/HDR verificada en iPad;
+- compatibilidad certificada con Safari, Chrome, Firefox y Opera en iPad;
+- flujo completo de Creative Control con aprobación, ejecución transaccional, undo y chat.
 
 ## Próximos pasos
 
-1. Inspeccionar el README, dependencias, archivos y funcionamiento del prototipo de personajes.
-2. Auditar Creative Control y sus contratos.
-3. Identificar código reutilizable y dependencias/licencias.
-4. Diseñar una migración incremental a este repositorio, preservando el repositorio anterior.
-5. Ejecutar el prototipo en Codespaces y probarlo desde el iPad.
-6. Registrar resultados verificables antes de comenzar nuevas funciones.
+1. Abrir el Codespace del repositorio nuevo en la rama `docs/base-continuidad-y-migracion`.
+2. Comparar el repositorio histórico en la rama `feature/living-paper-engine-foundation` y revisar sus commits.
+3. Ejecutar pruebas y revisar los archivos actuales sin alterar el repositorio original.
+4. Auditar primero editor de personajes y Creative Control; conservar el motor PixiJS como laboratorio reutilizable, no imponerlo como núcleo sin evaluación.
+5. Migrar por módulos a una rama de trabajo nueva y comprobar el funcionamiento desde el iPad.
 
-## Registro de cambios de esta etapa
+## Registro de esta etapa
 
-- Se creó la rama `docs/base-continuidad-y-migracion` desde `main`.
-- Se preparó documentación inicial de continuidad y recuperación.
-- No se modificó ni eliminó el repositorio anterior.
-- No se copiaron todavía binarios ni código del repositorio anterior.
+- Documentación de continuidad creada en una rama separada.
+- Se identificó una rama histórica más avanzada que `main`; la migración se debe basar en esa revisión, no en la rama `main` antigua.
+- El repositorio anterior permanece intacto.
+- No se han copiado todavía código ni imágenes binarias al repositorio nuevo.
